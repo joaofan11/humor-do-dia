@@ -1,76 +1,119 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Como você está hoje?</title>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#ece8f7;--ink:#2a2750;--soft:#6b678f;--card:#fff;--line:#d6d0ec}
-@media(prefers-color-scheme:dark){:root{--bg:#1d1b38;--ink:#f1eefc;--soft:#a9a4cf;--card:#2a2750;--line:#3d3a6b}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.5;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
-main{max-width:640px;margin:0 auto;padding:28px 18px 60px}
-h1{font-size:clamp(2rem,8vw,3rem);line-height:1.05;font-weight:800;margin:0 0 6px;letter-spacing:-.02em}
-.sub{color:var(--soft);margin:0 0 22px}
-.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:24px}
-.tabs button{flex:1;border:0;background:none;color:var(--soft);font:inherit;font-weight:600;padding:9px;border-radius:999px;cursor:pointer}
-.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media(min-width:520px){.grid{grid-template-columns:repeat(3,1fr)}}
-.mood{border:2px solid transparent;background:var(--card);border-radius:20px;padding:0;cursor:pointer;font:inherit;color:inherit;overflow:hidden;text-align:center;transition:transform .15s}
-.mood:hover{transform:translateY(-2px)}
-.mood .pic{aspect-ratio:1;display:grid;place-items:center;font-size:3.4rem;background:var(--c)}
-.mood img{width:100%;height:100%;object-fit:cover;display:block}
-.mood .lbl{display:block;padding:10px 6px;font-weight:600}
-.mood[aria-pressed=true]{border-color:var(--ink);box-shadow:0 0 0 3px var(--c)}
-textarea{width:100%;margin-top:18px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:inherit;padding:12px;resize:vertical;min-height:70px}
-.send{width:100%;margin-top:12px;border:0;border-radius:14px;background:var(--ink);color:var(--bg);font:inherit;font-weight:800;padding:14px;cursor:pointer}
-.send:disabled{opacity:.35;cursor:not-allowed}
-:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
-.msg{margin-top:12px;font-weight:600;min-height:1.5em}
-.now{background:var(--c);border-radius:26px;overflow:hidden;color:#2a2750}
-.now .pic{aspect-ratio:16/10;display:grid;place-items:center;font-size:6rem}
-.now img{width:100%;height:100%;object-fit:cover}
-.now .info{padding:16px 20px 20px;background:var(--card);color:var(--ink)}
-.now h2{margin:0;font-size:1.7rem}
-.now p{margin:4px 0 0;color:var(--soft)}
-.hist{list-style:none;padding:0;margin:26px 0 0}
-.hist li{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
-.hist .e{font-size:1.6rem}
-.hist small{color:var(--soft);display:block}
-.warn{background:var(--card);border:1px dashed var(--soft);border-radius:12px;padding:10px 14px;margin-bottom:18px;font-size:.9rem}
-.empty{color:var(--soft)}
-[hidden]{display:none!important}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1d1b38">
+  <meta name="description" content="Um cantinho para João e Beatriz dividirem seus humores.">
+  <title>Como você está hoje? ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#ece8f7;--ink:#2a2750;--soft:#6b678f;--card:#fff;--line:#d6d0ec;--accent:#7457cd}
+    @media(prefers-color-scheme:dark){:root{--bg:#1d1b38;--ink:#f1eefc;--soft:#aaa5d0;--card:#2a2750;--line:#494574;--accent:#bdabff}}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.5;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+    main{max-width:640px;margin:0 auto;padding:28px 18px 60px}
+    h1{font-size:clamp(2rem,8vw,3rem);line-height:1.05;font-weight:800;margin:0 0 8px;letter-spacing:-.02em}
+    .sub{color:var(--soft);margin:0 0 22px}
+    .tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:24px}
+    .tabs button{flex:1;border:0;background:none;color:var(--soft);font:inherit;font-weight:600;padding:11px 6px;border-radius:999px;cursor:pointer}
+    .tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
+    .section-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .section-top h2{font-size:1rem;margin:0;font-weight:800}
+    .small{font-size:.88rem;color:var(--soft)}
+    .refresh{background:transparent;color:var(--ink);border:1px solid var(--line);padding:7px 12px;border-radius:999px;cursor:pointer;font:inherit;font-size:.87rem}
+    .refresh:disabled{opacity:.5;cursor:not-allowed}
+    .now{border-radius:26px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+    .now .pic{aspect-ratio:16/10;display:grid;place-items:center;font-size:6rem;background:var(--c);color:#2a2750}
+    .now img{width:100%;height:100%;object-fit:cover;display:block}
+    .now .info{padding:18px 20px 22px;background:var(--card);color:var(--ink)}
+    .sender-label{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:.8rem;font-weight:800;margin-bottom:8px;background:var(--bg)}
+    .sender-dot{display:inline-grid;place-items:center;border-radius:50%;width:23px;height:23px;color:#2a2750;background:#d4b6ff;font-size:.8rem}
+    .now h2{margin:0;font-size:1.75rem;line-height:1.15}
+    .now .date{margin:6px 0 0;color:var(--soft);font-size:.89rem}
+    .now .note{margin:13px 0 0;padding:11px 13px;background:var(--bg);border-radius:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+    .hist-header{display:flex;justify-content:space-between;align-items:center;margin:26px 0 8px;gap:10px}
+    .hist-header h2{margin:0;font-size:1.1rem}
+    .hist{list-style:none;margin:0;padding:0}
+    .hist li{display:flex;gap:12px;align-items:flex-start;border-top:1px solid var(--line);padding:12px 0}
+    .hist .e{font-size:1.9rem;line-height:1.1;margin-top:3px}
+    .hist .item{min-width:0;flex:1}
+    .hist .item-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+    .hist .item strong{font-size:.99rem}
+    .hist .by{font-size:.78rem;color:var(--accent);font-weight:800}
+    .hist small{color:var(--soft);display:block;margin-top:2px}
+    .hist .hist-note{font-size:.88rem;margin:5px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media(min-width:520px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .mood{border:2px solid transparent;background:var(--card);border-radius:20px;padding:0;cursor:pointer;font:inherit;color:inherit;overflow:hidden;text-align:center;transition:transform .15s}
+    .mood:hover{transform:translateY(-2px)}
+    .mood .pic{aspect-ratio:1;display:grid;place-items:center;font-size:3.4rem;background:var(--c);color:#2a2750}
+    .mood img{width:100%;height:100%;object-fit:cover;display:block}
+    .mood .lbl{display:block;padding:10px 6px;font-weight:600}
+    .mood[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+    .field-heading{font-size:1rem;margin:4px 0 9px;font-weight:800}
+    .who{margin-bottom:21px}
+    .who-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .who-options button{display:flex;align-items:center;justify-content:center;gap:9px;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:16px;padding:12px 7px;cursor:pointer;font:inherit;font-weight:800}
+    .who-options button[aria-pressed=true]{border-color:var(--accent);background:var(--bg);box-shadow:0 0 0 1px var(--accent)}
+    .avatar{display:grid;place-items:center;min-width:30px;height:30px;border-radius:50%;background:#c4b5fd;color:#2a2750;font-size:.85rem}
+    .avatar.b{background:#ffb1cb}
+    textarea{width:100%;margin-top:7px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:inherit;padding:12px;resize:vertical;min-height:80px}
+    .send{width:100%;margin-top:12px;border:0;border-radius:14px;background:var(--ink);color:var(--bg);font:inherit;font-weight:800;padding:14px;cursor:pointer}
+    .send:disabled{opacity:.42;cursor:not-allowed}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+    .msg{margin-top:12px;font-weight:600;min-height:1.5em}
+    .warn{background:var(--card);border:1px dashed var(--soft);border-radius:12px;padding:10px 14px;margin-bottom:18px;font-size:.9rem}
+    .empty{padding:22px 16px;border:1px dashed var(--line);border-radius:18px;background:var(--card);color:var(--soft);text-align:center}
+    .notice{margin:0 0 14px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:.9rem}
+    [hidden]{display:none!important}
+  </style>
 </head>
 <body>
 <main>
   <h1>Como você está hoje?</h1>
-  <p class="sub">Escolha a carinha (ou o meme) que mais combina com agora.</p>
+  <p class="sub">Um cantinho para João e Beatriz compartilharem como estão se sentindo.</p>
 
-  <div id="warn" class="warn" hidden>Modo teste: os humores ficam só neste aparelho. Configure o Firebase no código para ele ver o seu.</div>
+  <div id="warn" class="warn" hidden>Modo teste: os humores ficam só neste aparelho. Configure o Firebase para sincronizar.</div>
 
-  <div class="tabs" role="tablist">
-    <button role="tab" id="t-escolher" aria-selected="true">Escolher</button>
-    <button role="tab" id="t-ver" aria-selected="false">Ver humor</button>
+  <div class="tabs" role="tablist" aria-label="Navegação do site">
+    <button role="tab" id="t-ver" aria-selected="true" aria-controls="v-ver">Ver humor</button>
+    <button role="tab" id="t-enviar" aria-selected="false" aria-controls="v-enviar">Enviar humor</button>
   </div>
 
-  <section id="v-escolher">
-    <div class="grid" id="grid"></div>
-    <textarea id="note" placeholder="Quer contar mais alguma coisa? (opcional)" maxlength="200"></textarea>
-    <button class="send" id="send" disabled>Enviar meu humor</button>
-    <div class="msg" id="msg" role="status"></div>
+  <section id="v-ver" role="tabpanel" aria-labelledby="t-ver">
+    <div id="notice" class="notice" role="status" hidden></div>
+    <div class="section-top">
+      <h2>Último humor enviado</h2>
+      <button class="refresh" id="refresh" type="button">↻ Atualizar</button>
+    </div>
+    <div id="now" aria-live="polite"><div class="empty">Carregando humores…</div></div>
+    <div class="hist-header">
+      <h2>Histórico recente</h2>
+      <span id="hist-count" class="small"></span>
+    </div>
+    <ul class="hist" id="hist"></ul>
   </section>
 
-  <section id="v-ver" hidden>
-    <div id="now"></div>
-    <ul class="hist" id="hist"></ul>
+  <section id="v-enviar" role="tabpanel" aria-labelledby="t-enviar" hidden>
+    <div class="who">
+      <h2 class="field-heading">Quem está enviando?</h2>
+      <div class="who-options" aria-label="Escolha quem envia o humor">
+        <button id="who-joao" type="button" aria-pressed="false" data-sender="João"><span class="avatar">J</span> João</button>
+        <button id="who-beatriz" type="button" aria-pressed="false" data-sender="Beatriz"><span class="avatar b">B</span> Beatriz</button>
+      </div>
+    </div>
+    <h2 class="field-heading">Como você está se sentindo?</h2>
+    <div class="grid" id="grid"></div>
+    <label for="note" class="field-heading" style="display:block;margin-top:20px">Quer contar mais alguma coisa? <span class="small">(opcional)</span></label>
+    <textarea id="note" placeholder="Escreva uma observação..." maxlength="200"></textarea>
+    <button class="send" id="send" disabled>Enviar meu humor</button>
+    <div class="msg" id="msg" role="status"></div>
   </section>
 </main>
 
 <script type="module">
-// 1) Cole aqui a configuração do Firebase (veja o passo a passo). Deixe null para testar sem backend.
+// Configuração pública do app Web Firebase (não é uma chave privada).
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyAImHpzEhJYZ3LbWE7q4Hz1JB01gn-udZE",
   authDomain: "humor-do-dia-95c28.firebaseapp.com",
@@ -80,8 +123,7 @@ const FIREBASE_CONFIG = {
   appId: "1:800720243468:web:a5a4325885a88777d71729"
 };
 
-// 2) Os humores. Para usar memes/fotos, coloque os arquivos na pasta img/ com o nome do "id"
-//    (ex.: img/feliz.jpg). Se a imagem não existir, aparece o emoji.
+// Os arquivos de imagem são opcionais: img/feliz.jpg, img/triste.jpg etc.
 const MOODS = [
   {id:"feliz",      emoji:"😄", label:"Radiante",           c:"#ffd166"},
   {id:"apaixonada", emoji:"🥰", label:"Apaixonada",         c:"#ff8fab"},
@@ -93,11 +135,62 @@ const MOODS = [
   {id:"estressada", emoji:"😤", label:"Estressada",         c:"#ff9966"},
   {id:"irritada",   emoji:"😡", label:"Não mexe comigo",    c:"#f06a6a"}
 ];
-const IMG_EXT = "jpg"; // troque para png/webp se preferir
-
+const IMG_EXT = "jpg";
 const $ = s => document.querySelector(s);
 const byId = id => MOODS.find(m => m.id === id) || MOODS[0];
-let db = null, fs = null, selected = null;
+const senderLabel = value => value === "João" || value === "Beatriz" ? value : "Não identificado";
+const fmt = ts => Number.isFinite(Number(ts))
+  ? new Date(Number(ts)).toLocaleString("pt-BR", {weekday:"short", day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"})
+  : "Data não informada";
+let db = null, fs = null, selected = null, sender = null, sending = false, unsubscribe = null;
+let initError = null;
+
+function pic(m, cls){
+  const d = document.createElement("div");
+  d.className = cls;
+  d.style.setProperty("--c", m.c);
+  d.textContent = m.emoji;
+  const img = new Image();
+  img.alt = m.label;
+  img.onload = () => { d.textContent = ""; d.appendChild(img); };
+  img.src = `img/${m.id}.${IMG_EXT}`;
+  return d;
+}
+
+function updateSend(){
+  $("#send").disabled = sending || !(sender && selected) || (!!FIREBASE_CONFIG && !db);
+}
+
+function renderGrid(){
+  const g = $("#grid");
+  MOODS.forEach(m => {
+    const b = document.createElement("button");
+    b.className = "mood";
+    b.type = "button";
+    b.style.setProperty("--c", m.c);
+    b.setAttribute("aria-pressed", "false");
+    b.appendChild(pic(m, "pic"));
+    const l = document.createElement("span");
+    l.className = "lbl"; l.textContent = m.label;
+    b.appendChild(l);
+    b.onclick = () => {
+      selected = m.id;
+      g.querySelectorAll(".mood").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      $("#msg").textContent = "";
+      updateSend();
+    };
+    g.appendChild(b);
+  });
+}
+
+document.querySelectorAll("[data-sender]").forEach(button => {
+  button.addEventListener("click", () => {
+    sender = button.dataset.sender;
+    document.querySelectorAll("[data-sender]").forEach(b => b.setAttribute("aria-pressed", String(b === button)));
+    $("#msg").textContent = "";
+    updateSend();
+  });
+});
 
 async function init(){
   if(FIREBASE_CONFIG){
@@ -107,118 +200,158 @@ async function init(){
   } else {
     $("#warn").hidden = false;
   }
-}
-
-function pic(m, cls){
-  const d = document.createElement("div");
-  d.className = cls;
-  d.style.setProperty("--c", m.c);
-  const img = new Image();
-  img.alt = m.label;
-  img.src = `img/${m.id}.${IMG_EXT}`;
-  img.onload = () => { d.textContent = ""; d.appendChild(img); };
-  d.textContent = m.emoji;
-  return d;
-}
-
-function renderGrid(){
-  const g = $("#grid");
-  MOODS.forEach(m => {
-    const b = document.createElement("button");
-    b.className = "mood";
-    b.style.setProperty("--c", m.c);
-    b.setAttribute("aria-pressed", "false");
-    b.appendChild(pic(m, "pic"));
-    const l = document.createElement("span");
-    l.className = "lbl"; l.textContent = m.label;
-    b.appendChild(l);
-    b.onclick = () => {
-      selected = m.id;
-      g.querySelectorAll(".mood").forEach(x => x.setAttribute("aria-pressed", x === b));
-      $("#send").disabled = false;
-    };
-    g.appendChild(b);
-  });
+  updateSend();
 }
 
 async function save(entry){
-  if(db){ await fs.addDoc(fs.collection(db, "humores"), entry); return; }
+  if(db){
+    await fs.addDoc(fs.collection(db, "humores"), entry);
+    return;
+  }
+  if(FIREBASE_CONFIG) throw new Error("Firebase não conectado");
   const list = JSON.parse(localStorage.getItem("humores") || "[]");
   list.unshift(entry);
   localStorage.setItem("humores", JSON.stringify(list.slice(0, 30)));
 }
 
-async function load(){
-  if(db){
-    const q = fs.query(fs.collection(db, "humores"), fs.orderBy("ts", "desc"), fs.limit(30));
-    return (await fs.getDocs(q)).docs.map(d => d.data());
-  }
-  try { return JSON.parse(localStorage.getItem("humores") || "[]"); } catch { return []; }
+async function loadLocal(){
+  try { return JSON.parse(localStorage.getItem("humores") || "[]"); }
+  catch { return []; }
 }
 
-const fmt = ts => new Date(ts).toLocaleString("pt-BR", {weekday:"short", day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"});
+function showNotice(message){
+  $("#notice").textContent = message;
+  $("#notice").hidden = !message;
+}
 
-async function renderVer(){
-  const list = await load();
+function display(list){
   const now = $("#now"), hist = $("#hist");
-  now.textContent = ""; hist.textContent = "";
+  now.replaceChildren(); hist.replaceChildren();
+  $("#hist-count").textContent = list.length > 1 ? `${list.length - 1} anteriores` : "";
   if(!list.length){
-    now.innerHTML = '<p class="empty">Ainda não chegou nenhum humor hoje.</p>';
+    const p = document.createElement("div");
+    p.className = "empty";
+    p.textContent = "Ainda não há humores enviados. Que tal compartilhar o primeiro?";
+    now.appendChild(p);
     return;
   }
   const last = list[0], m = byId(last.mood);
-  const card = document.createElement("div");
-  card.className = "now"; card.style.setProperty("--c", m.c);
+  const card = document.createElement("article");
+  card.className = "now";
   card.appendChild(pic(m, "pic"));
   const info = document.createElement("div");
   info.className = "info";
+  const tag = document.createElement("div");
+  tag.className = "sender-label";
+  const dot = document.createElement("span");
+  dot.className = "sender-dot";
+  dot.textContent = last.sender === "João" ? "J" : last.sender === "Beatriz" ? "B" : "?";
+  if(last.sender === "Beatriz") dot.style.background = "#ffb1cb";
+  tag.append(dot, document.createTextNode(`Enviado por ${senderLabel(last.sender)}`));
   const h = document.createElement("h2"); h.textContent = m.label;
-  const t = document.createElement("p"); t.textContent = fmt(last.ts);
-  info.append(h, t);
-  if(last.note){ const n = document.createElement("p"); n.style.color = "var(--ink)"; n.textContent = "“" + last.note + "”"; info.appendChild(n); }
+  const t = document.createElement("p"); t.className = "date"; t.textContent = fmt(last.ts);
+  info.append(tag, h, t);
+  if(last.note){
+    const n = document.createElement("p");
+    n.className = "note";
+    n.textContent = `“${last.note}”`;
+    info.appendChild(n);
+  }
   card.appendChild(info);
   now.appendChild(card);
   list.slice(1).forEach(e => {
     const mm = byId(e.mood), li = document.createElement("li");
     const em = document.createElement("span"); em.className = "e"; em.textContent = mm.emoji;
-    const box = document.createElement("div");
-    box.textContent = mm.label;
-    const s = document.createElement("small");
-    s.textContent = fmt(e.ts) + (e.note ? " — " + e.note : "");
-    box.appendChild(s);
-    li.append(em, box);
-    hist.appendChild(li);
+    const item = document.createElement("div"); item.className = "item";
+    const head = document.createElement("div"); head.className = "item-head";
+    const strong = document.createElement("strong"); strong.textContent = mm.label;
+    const by = document.createElement("span"); by.className = "by"; by.textContent = `· ${senderLabel(e.sender)}`;
+    const date = document.createElement("small"); date.textContent = fmt(e.ts);
+    head.append(strong, by); item.append(head, date);
+    if(e.note){
+      const n = document.createElement("p"); n.className = "hist-note"; n.textContent = `“${e.note}”`;
+      item.appendChild(n);
+    }
+    li.append(em, item); hist.appendChild(li);
   });
+}
+
+function stopListening(){
+  if(unsubscribe){ unsubscribe(); unsubscribe = null; }
+}
+
+async function loadHumores(){
+  stopListening();
+  if(initError){
+    $("#now").innerHTML = '<div class="empty">Não foi possível conectar ao Firebase. Recarregue a página.</div>';
+    return;
+  }
+  if(db){
+    $("#refresh").disabled = true;
+    try {
+      const q = fs.query(fs.collection(db, "humores"), fs.orderBy("ts", "desc"), fs.limit(30));
+      unsubscribe = fs.onSnapshot(q, snapshot => {
+        display(snapshot.docs.map(d => d.data()));
+        $("#refresh").disabled = false;
+      }, err => {
+        console.error("Falha ao consultar humores:", err);
+        $("#now").innerHTML = '<div class="empty">Não foi possível carregar os humores. Verifique a conexão e as regras do Firestore.</div>';
+        $("#refresh").disabled = false;
+      });
+    } catch(err){
+      console.error(err);
+      $("#now").innerHTML = '<div class="empty">Erro ao carregar os humores.</div>';
+      $("#refresh").disabled = false;
+    }
+  } else {
+    display(await loadLocal());
+  }
 }
 
 function tab(name){
-  ["escolher", "ver"].forEach(n => {
-    $("#v-" + n).hidden = n !== name;
-    $("#t-" + n).setAttribute("aria-selected", n === name);
-  });
-  if(name === "ver") renderVer();
-  history.replaceState(null, "", name === "ver" ? "#ver" : "#");
+  const ver = name === "ver";
+  $("#v-ver").hidden = !ver;
+  $("#v-enviar").hidden = ver;
+  $("#t-ver").setAttribute("aria-selected", String(ver));
+  $("#t-enviar").setAttribute("aria-selected", String(!ver));
+  history.replaceState(null, "", ver ? "#ver" : "#enviar");
+  if(ver) loadHumores(); else stopListening();
 }
 
-$("#t-escolher").onclick = () => tab("escolher");
 $("#t-ver").onclick = () => tab("ver");
+$("#t-enviar").onclick = () => tab("enviar");
+$("#refresh").onclick = () => loadHumores();
 
 $("#send").onclick = async () => {
-  if(!selected) return;
+  if(!selected || !sender || sending) return;
   const btn = $("#send"), msg = $("#msg");
-  btn.disabled = true; msg.textContent = "Enviando…";
+  sending = true; updateSend();
+  msg.textContent = "Enviando…";
   try {
-    await save({mood: selected, note: $("#note").value.trim(), ts: Date.now()});
-    msg.textContent = "Humor enviado!";
+    await save({mood:selected, note:$("#note").value.trim(), sender, ts:Date.now()});
     $("#note").value = "";
-  } catch (e) {
-    msg.textContent = "Não deu para enviar. Tente de novo.";
-    btn.disabled = false;
+    selected = null;
+    $("#grid").querySelectorAll(".mood").forEach(b => b.setAttribute("aria-pressed", "false"));
+    sending = false;
+    updateSend();
+    msg.textContent = "";
+    showNotice(`Humor de ${sender} enviado com sucesso! 💜`);
+    tab("ver");
+  } catch(e){
+    console.error("Não foi possível enviar o humor:", e);
+    msg.textContent = e.code === "permission-denied"
+      ? "Envio bloqueado pelo Firebase. Atualize as regras para permitir o campo sender."
+      : "Não foi possível enviar. Verifique a conexão e tente novamente.";
+    sending = false; updateSend();
   }
 };
 
 renderGrid();
-init().then(() => { if(location.hash === "#ver") tab("ver"); });
+init().catch(e => {
+  console.error("Falha na inicialização do Firebase:", e);
+  initError = e;
+  updateSend();
+}).finally(() => tab(location.hash === "#enviar" ? "enviar" : "ver"));
 </script>
 </body>
 </html>

@@ -212,6 +212,12 @@ const fxOf = id => EFFECTS.find(e=>e.id===id) || EFFECTS[0];
 const el = (tag,cls,text) => {const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x;};
 let db=null, fs=null, auth=null, authSdk=null, initError=null, who=null, selectedMood=null, selectedFx=null, sending=false, currentTab="ver", sendMode="humor", subs=[], currentUser=null;
 let moodDocs=[], catalogUnsub=null, currentEditorId=null, currentEditorImg="", currentCatalog={}, isAdminSaving=false;
+// Link direto de uma notificacao: ?surpresa=ID_DO_DOCUMENTO
+// E armazenado antes da autenticacao para permanecer disponivel apos o login.
+const requestedSurpriseId = new URLSearchParams(window.location.search).get("surpresa");
+let pendingSurpriseId = requestedSurpriseId && /^[A-Za-z0-9]{10,64}$/.test(requestedSurpriseId)
+  ? requestedSurpriseId : null;
+
 const localKey = col => `humor-do-dia:${col}`;
 function showNotice(txt){$("#notice").textContent=txt;$("#notice").hidden=!txt;}
 function setStatus(txt){$("#send-status").textContent=txt;}
@@ -223,11 +229,49 @@ function stopSubs(){subs.forEach(fn=>fn());subs=[];}
 function showMood(docs){moodDocs=docs;const now=$("#now"),hist=$("#hist");now.replaceChildren();hist.replaceChildren();$("#hist-count").textContent=docs.length>1?`${docs.length-1} anteriores`:"";if(!docs.length){now.append(el("div","empty","Ainda não há humores. Que tal enviar o primeiro?"));return;}
 const last=docs[0],m=moodOf(last.mood),card=el("article","now"),info=el("div","info");card.append(imagePic(m,"pic"));info.append(el("span","sender-pill",`💜 Enviado por ${nameOf(last.sender)}`),el("h3",null,m.label),el("div","date",fmt(last.ts)));makeNote(info,last.note,"mood-note");card.append(info);now.append(card);
 docs.slice(1).forEach(item=>{const li=el("li"),m2=moodOf(item.mood),details=el("div","entry");details.append(el("strong",null,`${m2.label} · ${nameOf(item.sender)}`),el("small",null,fmt(item.ts)));if(item.note)details.append(el("p",null,item.note));li.append(el("span","emoji",m2.emoji),details);hist.append(li);});}
-function showSurprises(docs){const list=$("#surprises");list.replaceChildren();$("#surprise-count").textContent=docs.length?`${docs.length} recentes`:"";if(!docs.length){list.append(el("div","empty","Ainda não há surpresas. Envie a primeira na aba Enviar!"));return;}docs.forEach(item=>{const fx=fxOf(item.type),b=el("button","surprise-card"),icon=el("span","surprise-icon",fx.emoji),copy=el("span","surprise-copy");b.type="button";copy.append(el("strong",null,fx.label),el("small",null,`${nameOf(item.sender)} → ${nameOf(item.recipient)} · ${fmt(item.ts)}`));b.append(icon,copy,el("span","chevron","›"));b.addEventListener("click",()=>openFx(item));list.append(b);});}
+function showSurprises(docs){
+  const list = $("#surprises");
+  list.replaceChildren();
+  $("#surprise-count").textContent = docs.length ? `${docs.length} recentes` : "";
+  if (!docs.length) {
+    list.append(el("div", "empty", "Ainda não há surpresas. Envie a primeira na aba Enviar!"));
+    return;
+  }
+  docs.forEach(item => {
+    const fx = fxOf(item.type), b = el("button", "surprise-card");
+    const icon = el("span", "surprise-icon", fx.emoji), copy = el("span", "surprise-copy");
+    b.type = "button";
+    copy.append(
+      el("strong", null, fx.label),
+      el("small", null, `${nameOf(item.sender)} → ${nameOf(item.recipient)} · ${fmt(item.ts)}`)
+    );
+    b.append(icon, copy, el("span", "chevron", "›"));
+    b.addEventListener("click", () => openFx(item));
+    list.append(b);
+  });
+
+  // Se a notificacao indicar uma surpresa existente, abra-a automaticamente
+  // depois de os dados serem carregados e a conta autenticada ser confirmada.
+  if (pendingSurpriseId) {
+    const item = docs.find(x => x.__docId === pendingSurpriseId);
+    if (item) {
+      pendingSurpriseId = null;
+      const url = new URL(window.location.href);
+      url.searchParams.delete("surpresa");
+      history.replaceState(null, "", url.pathname + url.search + "#ver");
+      if (item.recipient === who) {
+        tab("ver");
+        openFx(item);
+      } else {
+        showNotice("Esta surpresa foi endereçada à outra pessoa.");
+      }
+    }
+  }
+}
 function listen(){stopSubs();if(!currentUser||!db)return;for(const [col,fn,target] of [["humores",showMood,"#now"],["surpresas",showSurprises,"#surprises"]]){
  const q=fs.query(fs.collection(db,col),fs.orderBy("ts","desc"),fs.limit(30));let first=true;
  const unsub=fs.onSnapshot(q,s=>{
-  fn(s.docs.map(d=>d.data()));
+  fn(s.docs.map(d=>({...d.data(), __docId: d.id})));
   if(!first){
    const added=s.docChanges().filter(c=>c.type==="added"&&c.doc.data().sender!==who&&c.doc.data().ts>Date.now()-120000);
    if(added.length){const from=added[0].doc.data().sender;const text=col==="humores"?`${from} enviou um novo humor!`:`${from} enviou uma surpresa para você!`;

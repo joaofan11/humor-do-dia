@@ -22,6 +22,8 @@ main{max-width:720px;margin:0 auto;padding:25px 16px 65px}.mast{margin-bottom:20
 .who{margin:0 0 22px}.field-title{font-size:1rem;font-weight:800;margin:0 0 10px}.who-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.who-options button{border:2px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);padding:11px 7px;font-weight:800}.who-options button[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}.avatar{display:inline-grid;place-items:center;background:#cebaff;color:#29244d;border-radius:50%;width:27px;height:27px;margin-right:4px}.avatar.b{background:#ffacc9}.send-switch{margin:10px 0 24px}.mood-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}@media(min-width:560px){.mood-grid{grid-template-columns:repeat(3,1fr)}}.mood{padding:0;border:2px solid transparent;border-radius:18px;overflow:hidden;background:var(--card);color:var(--ink)}.mood .pic{aspect-ratio:1;background:var(--c);display:grid;place-items:center;font-size:3.4rem;color:#29244d}.mood span.lbl{display:block;padding:8px 5px;font-weight:800;font-size:.9rem}.mood[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
 .effect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}@media(min-width:560px){.effect-grid{grid-template-columns:repeat(4,1fr)}}.effect-choice{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:17px;padding:13px 6px;display:grid;gap:7px;justify-items:center;min-height:98px}.effect-choice .symbol{font-size:2.1rem}.effect-choice .effect-name{font-size:.75rem;line-height:1.18;text-align:center;font-weight:800}.effect-choice[aria-pressed=true]{border-color:var(--accent);background:var(--purple)}
 .field{display:block;font-weight:800;margin:16px 0 6px}.field span{font-size:.81rem;font-weight:400;color:var(--soft)}textarea,select{display:block;width:100%;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink)}textarea{min-height:86px;resize:vertical}.submit{display:block;border:0;border-radius:15px;background:var(--ink);color:var(--bg);padding:14px 18px;font-weight:800;width:100%;margin-top:14px}.send-status{min-height:22px;margin:9px 0;color:var(--soft);font-weight:700}.tip{background:var(--purple);border-radius:12px;padding:10px 12px;font-size:.88rem;margin:12px 0}.footer{text-align:center;color:var(--soft);font-size:.79rem;margin-top:38px}
+/* Catálogo de humores e gerenciamento seguro */
+.manager{margin-top:34px;border:1px solid var(--line);border-radius:19px;background:var(--card);padding:14px 17px}.manager summary{cursor:pointer;font-weight:800;list-style-position:inside}.manager p{margin:8px 0;color:var(--soft);font-size:.87rem}.manager-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}.manager-actions button,.manage-row button{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:11px;padding:8px 11px;font-weight:700}.manage-list{display:grid;gap:8px;margin:12px 0}.manage-row{display:flex;align-items:center;gap:10px;padding:8px;border:1px solid var(--line);border-radius:12px}.manage-row .thumb{width:49px;height:49px;flex:0 0 49px;overflow:hidden;display:grid;place-items:center;background:var(--c);border-radius:9px;font-size:1.7rem;color:#29244d}.manage-row .thumb img{width:100%;height:100%;object-fit:cover}.manage-row .desc{flex:1;min-width:0}.manage-row .desc small{display:block;color:var(--soft)}.manage-row.is-inactive{opacity:.65}.manage-form{border-top:1px solid var(--line);padding-top:10px}.manage-form input[type=text],.manage-form input[type=file],.manage-form input[type=color]{display:block;width:100%;margin-top:5px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:9px}.manage-form label{display:block;font-weight:750;margin:11px 0;font-size:.9rem}.manage-form input[type=color]{width:86px;height:45px;padding:3px}.manage-form .mini-preview{width:125px;height:125px;display:grid;place-items:center;border-radius:14px;background:var(--purple);font-size:3.5rem;overflow:hidden;margin:12px 0}.manage-form .mini-preview img{width:100%;height:100%;object-fit:cover}.manage-form .form-buttons{display:flex;gap:8px;flex-wrap:wrap}.manage-form .form-buttons button{border:0;border-radius:12px;background:var(--ink);color:var(--bg);padding:11px 15px;font-weight:800}.manage-form .form-buttons .muted{background:var(--bg);border:1px solid var(--line);color:var(--ink)}.admin-state{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.85rem;color:var(--soft);margin:8px 0}.manager-note{font-size:.79rem!important}
 /* Janela de surpresa */
 .modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:rgba(17,12,39,.79);padding:14px;overscroll-behavior:contain}.modal-panel{background:var(--card);color:var(--ink);border:1px solid var(--line);width:min(100%,500px);max-height:min(91dvh,820px);overflow:auto;position:relative;border-radius:28px;padding:18px 20px 24px;box-shadow:0 25px 80px rgba(0,0,0,.35)}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:9px}.modal h2{font-size:1.35rem;margin:2px 0 0}.modal .from{color:var(--soft);font-size:.82rem}.close{flex:0 0 38px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1.4rem}.fx-instruction{text-align:center;color:var(--soft);margin:18px 0 12px;font-size:.9rem}.fx-scene{position:relative;min-height:250px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;border-radius:22px;background:linear-gradient(145deg,#f8e6ff,#ffe4ee 55%,#fff7d9);color:#342550;padding:18px;overflow:hidden}.fx-scene button{font-weight:800}.fx-big{font-size:6rem;line-height:1.2;border:0;background:transparent;display:block;transition:transform .3s}.fx-primary{border:0;border-radius:999px;background:#5a3d95;color:#fff;padding:10px 18px;font-size:.9rem}.fx-text{display:block;background:rgba(255,255,255,.93);color:#3e2754;padding:16px 18px;border-radius:16px;max-width:100%;width:100%;white-space:pre-wrap;overflow-wrap:anywhere;text-align:center;font-weight:800;animation:pop .46s both;box-shadow:0 9px 25px #432e5020}.fx-text[hidden]{display:none!important}.fx-counter{font-weight:700;color:#72568e;font-size:.88rem}.fx-sky{width:100%;min-height:275px;background:radial-gradient(ellipse at top,#543a92,#171b46);color:white;position:relative;overflow:hidden;border-radius:18px}.fx-sky button{position:absolute;border:0;background:transparent;color:#fff4a4;text-shadow:0 0 16px #f4eab3;font-size:2.3rem;animation:twinkle 2.2s infinite alternate}.fx-sky button:hover{transform:scale(1.15)}.fx-sky .fx-text{position:absolute;bottom:9px;left:4%;width:92%}
 /* Presente */.gift-art{width:188px;height:166px;position:relative;display:block;border:0;background:transparent;cursor:pointer;margin:25px auto 0;transition:transform .2s}.gift-base{position:absolute;bottom:0;left:12px;width:164px;height:120px;border-radius:8px;background:linear-gradient(90deg,#f183a8,#ffadc8);box-shadow:0 14px 25px #903d6a40}.gift-lid{position:absolute;z-index:2;left:1px;top:27px;width:186px;height:40px;background:#ffbdd6;border-radius:8px;box-shadow:0 6px 10px #b1558955;transition:transform .8s}.gift-base:after,.gift-lid:after{content:"";position:absolute;left:calc(50% - 13px);top:0;height:100%;width:26px;background:#a952b8}.gift-art:before{content:"🎀";position:absolute;top:-35px;left:50px;font-size:4.8rem;z-index:3;transition:transform .8s}.gift-art.opened .gift-lid,.gift-art.opened:before{transform:translateY(-85px) rotate(-13deg)}.gift-art.opened .gift-base{animation:shake .55s}
@@ -37,10 +39,41 @@ main{max-width:720px;margin:0 auto;padding:25px 16px 65px}.mast{margin-bottom:20
 /* Beijinhos */.kisses{position:relative;width:100%;height:170px}.kiss{position:absolute;bottom:0;pointer-events:none;animation:kissUp 2.7s ease-out both}
 @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes popout{to{opacity:0;transform:scale(.1)}}@keyframes heartbeat{50%{transform:scale(1.12)}}@keyframes shake{25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}@keyframes float{to{transform:translateY(-16px)}}@keyframes twinkle{to{opacity:.65;filter:brightness(1.5)}}@keyframes flame{to{transform:rotate(11deg) scale(1.1)}}@keyframes kissUp{0%{opacity:0;transform:translateY(10px) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translate(var(--drift),-185px) scale(1.45)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Tela de acesso e avisos de mensagens */
+.login-gate{min-height:100dvh;display:grid;place-items:center;padding:32px 16px;background:radial-gradient(circle at 50% 0%,var(--purple),var(--bg) 68%)}
+.login-card{width:min(100%,430px);padding:28px 24px;background:var(--card);border:1px solid var(--line);border-radius:27px;box-shadow:var(--shadow)}
+.login-card h1{text-align:center;font-size:2rem;margin:4px 0}.login-card .lead{text-align:center;color:var(--soft);font-size:.91rem;margin:0 0 21px}
+.login-persons{display:grid;grid-template-columns:1fr 1fr;gap:10px}.login-persons button{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:15px;padding:12px 7px;font-weight:800}.login-persons button[aria-pressed=true]{border-color:var(--accent);background:var(--purple)}
+.login-card label{font-weight:800;font-size:.9rem;display:block;margin-top:14px}.login-card input{margin-top:5px;width:100%;padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--bg);color:var(--ink);font:inherit}
+.login-card .login-tip{font-weight:400;color:var(--soft);font-size:.78rem;margin:7px 0 0}.login-card .submit{margin-top:20px}.login-error{color:#ba3456;min-height:1.5em;font-size:.88rem;font-weight:700;margin:12px 0 0}
+.account-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0 0;font-size:.82rem;color:var(--soft)}.account-bar button{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink);font:inherit;font-weight:700}
+.toast{position:fixed;z-index:70;bottom:20px;left:50%;transform:translateX(-50%);background:var(--card);color:var(--ink);border:2px solid var(--accent);border-radius:17px;box-shadow:0 10px 40px #0004;padding:12px 14px;width:min(92vw,380px)}.toast strong,.toast span{display:block}.toast button{border:0;background:var(--purple);color:var(--ink);font:inherit;font-weight:800;padding:6px 12px;border-radius:10px;margin-top:8px}
 </style>
 </head>
 <body>
-<main>
+<section id="gate" class="login-gate" aria-labelledby="gate-heading">
+  <form id="login-form" class="login-card">
+    <div style="text-align:center;font-size:3.2rem">💗</div>
+    <h1 id="gate-heading">Nosso cantinho</h1>
+    <p class="lead">Só João e Beatriz. Um lugar para dividir humores, carinho e surpresas.</p>
+    <div class="field-title">Quem está entrando?</div>
+    <div class="login-persons">
+      <button type="button" data-person="João" aria-pressed="true">💙 João</button>
+      <button type="button" data-person="Beatriz" aria-pressed="false">💗 Beatriz</button>
+    </div>
+    <label for="login-email">Seu e-mail cadastrado no Firebase
+      <input id="login-email" type="email" autocomplete="username" placeholder="seu@email.com" required maxlength="254">
+    </label>
+    <p class="login-tip">Informe uma vez por aparelho. Depois, seu e-mail será lembrado aqui.</p>
+    <label for="login-pass">Sua chave de acesso
+      <input id="login-pass" type="password" autocomplete="current-password" placeholder="Sua senha pessoal" required>
+    </label>
+    <button id="login-submit" class="submit" type="submit">Entrar ❤️</button>
+    <p id="login-error" class="login-error" role="status" aria-live="polite"></p>
+  </form>
+</section>
+<main id="app-main" hidden>
+  <div class="account-bar"><span id="connected-as">Conectado</span><button id="signout" type="button">Sair</button></div>
   <header class="mast"><div class="eyebrow">❤️ João &amp; Beatriz</div><h1>Como você está hoje?</h1><p class="sub">Um lugarzinho para dividir humores e mandar surpresas, mesmo à distância.</p></header>
   <div id="warn" class="warn" hidden>Modo demonstração: as mensagens ficam somente neste aparelho. Configure o Firebase para sincronizar.</div>
   <nav class="tabs" aria-label="Navegação principal"><button id="t-ver" type="button" aria-selected="true">💗 Ver humor</button><button id="t-enviar" type="button" aria-selected="false">💌 Enviar</button></nav>
@@ -53,14 +86,35 @@ main{max-width:720px;margin:0 auto;padding:25px 16px 65px}.mast{margin-bottom:20
     <div class="section-heading"><h2>Histórico de humores</h2><span id="hist-count" class="small"></span></div><ul id="hist" class="hist"></ul>
   </section>
   <section id="v-enviar" hidden>
-    <div class="who"><h2 class="field-title">Quem está enviando?</h2><div class="who-options"><button data-sender="João" type="button" aria-pressed="false"><span class="avatar">J</span> João</button><button data-sender="Beatriz" type="button" aria-pressed="false"><span class="avatar b">B</span> Beatriz</button></div></div>
+    <div class="who"><h2 class="field-title">Enviando como <span id="send-as">—</span> 💜</h2><p class="hint">Identificação automática, vinculada à sua conta.</p></div>
+    <details class="manager" id="admin-details">
+      <summary>⚙️ Gerenciar humores e imagens</summary>
+      <p>Adicione carinhas, troque nomes, emojis, cores e fotos diretamente pelo celular ou computador. Somente João e Beatriz, autenticados, podem editar o catálogo e enviar mensagens.</p>
+      <div id="admin-state" class="admin-state" role="status" aria-live="polite">Apenas João e Beatriz podem editar.</div>
+      <div id="admin-panel">
+        <div class="manager-actions"><button id="admin-new" type="button">+ Novo humor</button></div>
+        <div id="manage-list" class="manage-list"></div>
+        <form id="manage-form" class="manage-form" hidden>
+          <h3 id="manage-title">Novo humor</h3>
+          <label>Nome do humor <input id="manage-label" type="text" maxlength="36" placeholder="Ex.: Saudade" required></label>
+          <label>Emoji <input id="manage-emoji" type="text" maxlength="16" placeholder="🥹" required></label>
+          <label>Cor do cartão <input id="manage-color" type="color" value="#ff8fab"></label>
+          <label>Imagem opcional (JPG, PNG, WEBP, GIF, BMP — até 5 MB)<input id="manage-image" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp"></label>
+          <div id="manage-preview" class="mini-preview" aria-label="Prévia da imagem">🥹</div>
+          <div class="form-buttons"><button id="manage-save" type="submit">Salvar humor</button><button id="manage-remove-image" class="muted" type="button">Usar emoji, sem imagem</button><button id="manage-cancel" class="muted" type="button">Cancelar</button></div>
+          <p class="manager-note">A imagem é cortada em formato quadrado, comprimida antes do envio e compartilhada no Firestore. Para substituir uma foto, selecione outra imagem e salve.</p>
+        </form>
+      </div>
+    </details>
     <div class="send-switch"><button type="button" id="mode-humor" aria-pressed="true">😌 Humor</button><button type="button" id="mode-surpresa" aria-pressed="false">🎁 Surpresa</button></div>
     <section id="send-humor"><h2 class="field-title">Como você está se sentindo?</h2><div id="grid" class="mood-grid"></div><label for="note" class="field">Quer contar mais alguma coisa? <span>(opcional, até 200 caracteres)</span></label><textarea id="note" maxlength="200" placeholder="Como foi seu dia?"></textarea><button id="send" class="submit" type="button" disabled>Enviar meu humor</button></section>
     <section id="send-surprise" hidden><h2 class="field-title">Escolha sua surpresa ✨</h2><p class="hint">Ela aparecerá na tela inicial para o outro abrir.</p><div id="effects" class="effect-grid"></div><div id="effect-tip" class="tip" hidden></div><label for="message" class="field">Mensagem da surpresa <span>(até 600 caracteres)</span></label><textarea id="message" maxlength="600" placeholder="Escreva um recadinho especial…"></textarea><div id="photo-box" hidden><label for="photo" class="field">Imagem da Polaroid <span>(usar uma foto da pasta img/ ou emoji)</span></label><select id="photo"></select></div><button id="send-surprise-btn" class="submit" type="button" disabled>Enviar surpresa 🎁</button></section>
     <div id="send-status" class="send-status" role="status" aria-live="polite"></div>
+
   </section>
-  <footer class="footer">Feito com carinho. 💜 <br>  </footer>
+  <footer class="footer">Feito com carinho. 💜 <br>Acesso reservado a João e Beatriz pelo Firebase Authentication.</footer>
 </main>
+<div id="toast" class="toast" hidden role="status" aria-live="polite"><strong>💌 Uma novidade chegou!</strong><span id="toast-message"></span><button id="toast-open" type="button">Ver agora</button></div>
 <div id="modal" class="modal" hidden role="presentation"><div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-head"><div><div id="modal-from" class="from"></div><h2 id="modal-title"></h2></div><button id="modal-close" type="button" class="close" aria-label="Fechar surpresa">×</button></div><p id="fx-instruction" class="fx-instruction"></p><div id="fx-scene" class="fx-scene"></div><p class="small" style="margin:15px 3px 0">💡 Você pode abrir esta surpresa de novo quando quiser.</p></div></div>
 <script type="module">
 // Configuração pública do app Web Firebase. NÃO use chaves de contas de serviço aqui.
@@ -73,14 +127,19 @@ const FIREBASE_CONFIG = {
   appId: "1:800720243468:web:a5a4325885a88777d71729"
 };
 // Para usar imagens opcionais: img/feliz.jpg, img/apaixonada.jpg etc.
+const USERS = Object.freeze({
+  "João": "OQl7Q6WQtuaKo22KSXF5tLWAty12",
+  "Beatriz": "CTRWnWDeJceaNhVAKsmwQS460ch2"
+});
 const IMG_EXT = "jpg";
-const MOODS = [
+const BASE_MOODS = [
  {id:"feliz",emoji:"😄",label:"Radiante",c:"#ffd166"},{id:"apaixonada",emoji:"🥰",label:"Apaixonada",c:"#ff8fab"},
  {id:"tranquila",emoji:"😌",label:"De boa",c:"#8fd6b0"},{id:"cansada",emoji:"😴",label:"Sem energia",c:"#9db4ff"},
  {id:"ansiosa",emoji:"😵‍💫",label:"Ansiosa",c:"#c3a6ff"},{id:"fome",emoji:"🍕",label:"Com fome",c:"#ffb36b"},
  {id:"triste",emoji:"🥺",label:"Precisando de colo",c:"#7fb0d9"},{id:"estressada",emoji:"😤",label:"Estressada",c:"#ff9966"},
  {id:"irritada",emoji:"😡",label:"Não mexe comigo",c:"#f06a6a"}
 ];
+let MOODS = BASE_MOODS.map(m=>({...m,active:true,image:""}));
 const EFFECTS = [
  {id:"presente",emoji:"🎁",label:"Presente surpresa",tip:"A pessoa toca para abrir a caixa e descobrir a mensagem."},
  {id:"carta",emoji:"💌",label:"Cartinha de amor",tip:"O envelope desliza e revela sua carta."},
@@ -98,30 +157,43 @@ const EFFECTS = [
 const $ = s => document.querySelector(s);
 const nameOf = s => s === "João" || s === "Beatriz" ? s : "Não identificado";
 const fmt = ts => Number.isFinite(Number(ts)) && Number(ts) > 0 ? new Date(Number(ts)).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):"Sem data";
-const moodOf = id => MOODS.find(m=>m.id===id) || MOODS[0];
+const moodOf = id => MOODS.find(m=>m.id===id) || {id,emoji:"❔",label:"Humor antigo",c:"#e7dcef",active:false,image:""};
 const fxOf = id => EFFECTS.find(e=>e.id===id) || EFFECTS[0];
 const el = (tag,cls,text) => {const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x;};
-let db=null, fs=null, initError=null, who=null, selectedMood=null, selectedFx=null, sending=false, currentTab="ver", sendMode="humor", subs=[];
+let db=null, fs=null, auth=null, authSdk=null, initError=null, who=null, selectedMood=null, selectedFx=null, sending=false, currentTab="ver", sendMode="humor", subs=[], currentUser=null;
+let moodDocs=[], catalogUnsub=null, currentEditorId=null, currentEditorImg="", currentCatalog={}, isAdminSaving=false;
 const localKey = col => `humor-do-dia:${col}`;
 function showNotice(txt){$("#notice").textContent=txt;$("#notice").hidden=!txt;}
 function setStatus(txt){$("#send-status").textContent=txt;}
-function imagePic(m,cls){const box=el("div",cls,m.emoji);box.style.setProperty("--c",m.c);const img=new Image();img.alt=m.label;img.onload=()=>{box.replaceChildren(img);};img.src=`img/${m.id}.${IMG_EXT}`;return box;}
+function imagePic(m,cls){const box=el("div",cls,m.emoji);box.style.setProperty("--c",m.c);const img=new Image();img.alt=m.label;img.onload=()=>box.replaceChildren(img);img.onerror=()=>{img.remove();};const src=m.image||(BASE_MOODS.some(x=>x.id===m.id)?`img/${m.id}.${IMG_EXT}`:"");if(src)img.src=src;return box;}
 function makeNote(parent,msg,cls){if(!msg)return;parent.append(el("div",cls,msg));}
 function readLocal(col){try{return JSON.parse(localStorage.getItem(localKey(col))||"[]")}catch{return[]}}
 async function save(col,data){if(db){await fs.addDoc(fs.collection(db,col),data);return;}if(FIREBASE_CONFIG)throw Error("Firebase desconectado");const docs=readLocal(col);docs.unshift(data);localStorage.setItem(localKey(col),JSON.stringify(docs.slice(0,30)));}
 function stopSubs(){subs.forEach(fn=>fn());subs=[];}
-function showMood(docs){const now=$("#now"),hist=$("#hist");now.replaceChildren();hist.replaceChildren();$("#hist-count").textContent=docs.length>1?`${docs.length-1} anteriores`:"";if(!docs.length){now.append(el("div","empty","Ainda não há humores. Que tal enviar o primeiro?"));return;}
+function showMood(docs){moodDocs=docs;const now=$("#now"),hist=$("#hist");now.replaceChildren();hist.replaceChildren();$("#hist-count").textContent=docs.length>1?`${docs.length-1} anteriores`:"";if(!docs.length){now.append(el("div","empty","Ainda não há humores. Que tal enviar o primeiro?"));return;}
 const last=docs[0],m=moodOf(last.mood),card=el("article","now"),info=el("div","info");card.append(imagePic(m,"pic"));info.append(el("span","sender-pill",`💜 Enviado por ${nameOf(last.sender)}`),el("h3",null,m.label),el("div","date",fmt(last.ts)));makeNote(info,last.note,"mood-note");card.append(info);now.append(card);
 docs.slice(1).forEach(item=>{const li=el("li"),m2=moodOf(item.mood),details=el("div","entry");details.append(el("strong",null,`${m2.label} · ${nameOf(item.sender)}`),el("small",null,fmt(item.ts)));if(item.note)details.append(el("p",null,item.note));li.append(el("span","emoji",m2.emoji),details);hist.append(li);});}
 function showSurprises(docs){const list=$("#surprises");list.replaceChildren();$("#surprise-count").textContent=docs.length?`${docs.length} recentes`:"";if(!docs.length){list.append(el("div","empty","Ainda não há surpresas. Envie a primeira na aba Enviar!"));return;}docs.forEach(item=>{const fx=fxOf(item.type),b=el("button","surprise-card"),icon=el("span","surprise-icon",fx.emoji),copy=el("span","surprise-copy");b.type="button";copy.append(el("strong",null,fx.label),el("small",null,`${nameOf(item.sender)} → ${nameOf(item.recipient)} · ${fmt(item.ts)}`));b.append(icon,copy,el("span","chevron","›"));b.addEventListener("click",()=>openFx(item));list.append(b);});}
-function listen(){stopSubs();if(initError){$("#now").replaceChildren(el("div","empty","Não foi possível iniciar o Firebase. Verifique a configuração."));$("#surprises").replaceChildren(el("div","empty","Conexão indisponível."));return;}if(!db){showMood(readLocal("humores"));showSurprises(readLocal("surpresas"));return;}
-for(const [col,fn,target] of [["humores",showMood,"#now"],["surpresas",showSurprises,"#surprises"]]){const q=fs.query(fs.collection(db,col),fs.orderBy("ts","desc"),fs.limit(30));const unsub=fs.onSnapshot(q,s=>fn(s.docs.map(d=>d.data())),err=>{console.error("Erro Firestore:",col,err);$(target).replaceChildren(el("div","empty",err.code==="permission-denied"?"Permissão negada: publique as novas regras no Firestore.":"Não foi possível carregar. Verifique sua conexão."));});subs.push(unsub);}}
-function tab(name){currentTab=name;$("#v-ver").hidden=name!=="ver";$("#v-enviar").hidden=name!=="enviar";$("#t-ver").setAttribute("aria-selected",String(name==="ver"));$("#t-enviar").setAttribute("aria-selected",String(name==="enviar"));history.replaceState(null,"",name==="ver"?"#ver":"#enviar");if(name==="ver")listen();else stopSubs();}
+function listen(){stopSubs();if(!currentUser||!db)return;for(const [col,fn,target] of [["humores",showMood,"#now"],["surpresas",showSurprises,"#surprises"]]){
+ const q=fs.query(fs.collection(db,col),fs.orderBy("ts","desc"),fs.limit(30));let first=true;
+ const unsub=fs.onSnapshot(q,s=>{
+  fn(s.docs.map(d=>d.data()));
+  if(!first){
+   const added=s.docChanges().filter(c=>c.type==="added"&&c.doc.data().sender!==who&&c.doc.data().ts>Date.now()-120000);
+   if(added.length){const from=added[0].doc.data().sender;const text=col==="humores"?`${from} enviou um novo humor!`:`${from} enviou uma surpresa para você!`;
+    $("#toast-message").textContent=text;$("#toast").hidden=false;}
+  }
+  first=false;
+ },err=>{console.error("Erro Firestore:",col,err);$(target).replaceChildren(el("div","empty",err.code==="permission-denied"?"Permissão negada: atualize as regras no Firestore.":"Não foi possível carregar. Verifique sua conexão."));});subs.push(unsub);
+}}
+$("#toast-open").onclick=()=>{$("#toast").hidden=true;tab("ver");};
+function tab(name){currentTab=name;$("#v-ver").hidden=name!=="ver";$("#v-enviar").hidden=name!=="enviar";$("#t-ver").setAttribute("aria-selected",String(name==="ver"));$("#t-enviar").setAttribute("aria-selected",String(name==="enviar"));history.replaceState(null,"",name==="ver"?"#ver":"#enviar");}
 $("#t-ver").onclick=()=>tab("ver");$("#t-enviar").onclick=()=>tab("enviar");$("#refresh").onclick=()=>listen();
-function updateButtons(){$("#send").disabled=sending||!who||!selectedMood||(!!FIREBASE_CONFIG&&!db);$("#send-surprise-btn").disabled=sending||!who||!selectedFx||(!!FIREBASE_CONFIG&&!db);}
-document.querySelectorAll("[data-sender]").forEach(b=>b.onclick=()=>{who=b.dataset.sender;document.querySelectorAll("[data-sender]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));setStatus("");updateButtons();});
-function renderMoods(){MOODS.forEach(m=>{const b=el("button","mood");b.type="button";b.setAttribute("aria-pressed","false");b.append(imagePic(m,"pic"),el("span","lbl",m.label));b.onclick=()=>{selectedMood=m.id;$("#grid").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));updateButtons();};$("#grid").append(b);});}
-function renderEffects(){EFFECTS.forEach(f=>{const b=el("button","effect-choice");b.type="button";b.setAttribute("aria-pressed","false");b.append(el("span","symbol",f.emoji),el("span","effect-name",f.label));b.onclick=()=>{selectedFx=f.id;$("#effects").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("#effect-tip").textContent=f.tip;$("#effect-tip").hidden=false;$("#photo-box").hidden=f.id!=="polaroid";$("#message").placeholder=f.id==="pote"||f.id==="estrelas"?"Um recado por linha…":"Escreva um recadinho especial…";updateButtons();};$("#effects").append(b);});MOODS.forEach(m=>{const op=el("option",null,`${m.emoji} ${m.label}`);op.value=m.id;$("#photo").append(op);});$("#photo").value="apaixonada";}
+function updateButtons(){$("#send").disabled=sending||!currentUser||!selectedMood||!db;$("#send-surprise-btn").disabled=sending||!currentUser||!selectedFx||!db;}
+
+function renderMoods(){const grid=$("#grid");grid.replaceChildren();for(const m of MOODS.filter(x=>x.active)){const b=el("button","mood");b.type="button";b.setAttribute("aria-pressed",String(selectedMood===m.id));b.append(imagePic(m,"pic"),el("span","lbl",m.label));b.onclick=()=>{selectedMood=m.id;grid.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));updateButtons();};grid.append(b);}if(!MOODS.some(m=>m.id===selectedMood&&m.active))selectedMood=null;updateButtons();renderPhotoOptions();}
+function renderPhotoOptions(){const photo=$("#photo"),before=photo.value;photo.replaceChildren();for(const m of MOODS.filter(x=>x.active)){const op=el("option",null,`${m.emoji} ${m.label}`);op.value=m.id;photo.append(op);}photo.value=MOODS.some(m=>m.id===before&&m.active)?before:(MOODS.find(m=>m.id==="apaixonada"&&m.active)||MOODS.find(m=>m.active)||{}).id||"";}
+function renderEffects(){EFFECTS.forEach(f=>{const b=el("button","effect-choice");b.type="button";b.setAttribute("aria-pressed","false");b.append(el("span","symbol",f.emoji),el("span","effect-name",f.label));b.onclick=()=>{selectedFx=f.id;$("#effects").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("#effect-tip").textContent=f.tip;$("#effect-tip").hidden=false;$("#photo-box").hidden=f.id!=="polaroid";$("#message").placeholder=f.id==="pote"||f.id==="estrelas"?"Um recado por linha…":"Escreva um recadinho especial…";updateButtons();};$("#effects").append(b);});renderPhotoOptions();}
 function mode(name){sendMode=name;$("#send-humor").hidden=name!=="humor";$("#send-surprise").hidden=name!=="surpresa";$("#mode-humor").setAttribute("aria-pressed",String(name==="humor"));$("#mode-surpresa").setAttribute("aria-pressed",String(name==="surpresa"));setStatus("");}
 $("#mode-humor").onclick=()=>mode("humor");$("#mode-surpresa").onclick=()=>mode("surpresa");
 async function submit(col,data,success){sending=true;setStatus("Enviando…");updateButtons();try{await save(col,data);setStatus("");showNotice(success);tab("ver");}catch(e){console.error(e);setStatus(e.code==="permission-denied"?"O Firebase bloqueou o envio. Publique as regras atualizadas antes de testar.":"Não foi possível enviar. Confira a conexão e tente novamente.");}finally{sending=false;updateButtons();}}
@@ -152,8 +224,82 @@ default:instruction("Uma mensagem especial pra você");reveal(msg);
 }
 function closeFx(){fxToken++;$("#modal").hidden=true;document.body.style.overflow="";scene().replaceChildren();}
 $("#modal-close").onclick=closeFx;$("#modal").addEventListener("click",e=>{if(e.target===$("#modal"))closeFx();});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#modal").hidden)closeFx();});
-async function init(){if(FIREBASE_CONFIG){const {initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");fs=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");db=fs.getFirestore(initializeApp(FIREBASE_CONFIG));}else $("#warn").hidden=false;updateButtons();}
-renderMoods();renderEffects();mode("humor");init().catch(e=>{console.error("Falha de inicialização",e);initError=e;updateButtons();}).finally(()=>tab(location.hash==="#enviar"?"enviar":"ver"));
+// Administração do catálogo. Apenas UIDs autorizados nas regras do Firestore podem escrever.
+const ADMIN_COLLECTION="catalogo_humores";
+function mergeCatalog(entries){currentCatalog=Object.fromEntries(entries.map(x=>[x.id,x]));const all=BASE_MOODS.map((m,i)=>({...m,order:i,active:true,image:"",...currentCatalog[m.id]}));const known=new Set(BASE_MOODS.map(x=>x.id));for(const row of entries)if(!known.has(row.id))all.push({...row,c:row.color});MOODS=all.map(m=>({...m,c:m.color||m.c||"#ff8fab"})).sort((a,b)=>(a.order??99)-(b.order??99));renderMoods();if(moodDocs.length)showMood(moodDocs);renderManageList();}
+function listenCatalog(){if(!db)return;catalogUnsub?.();catalogUnsub=fs.onSnapshot(fs.collection(db,ADMIN_COLLECTION),snap=>mergeCatalog(snap.docs.map(d=>({id:d.id,...d.data()}))),err=>{$("#admin-state").textContent=`Não foi possível ler o catálogo: ${err.message}`;console.error(err);});}
+function renderManageList(){const list=$("#manage-list");if(!list)return;list.replaceChildren();for(const m of MOODS){const row=el("div","manage-row"+(m.active?"":" is-inactive")),thumb=imagePic(m,"thumb"),info=el("div","desc"),edit=el("button",null,"Editar"),toggle=el("button",null,m.active?"Excluir":"Reativar");edit.type=toggle.type="button";info.append(el("strong",null,`${m.emoji} ${m.label}`),el("small",null,m.active?"Disponível para enviar":"Oculto (histórico preservado)"));edit.onclick=()=>openEditor(m);toggle.onclick=()=>changeMoodActive(m,!m.active);row.append(thumb,info,edit,toggle);list.append(row);}}
+function adminMessage(text){$("#admin-state").textContent=text;}
+// Login único para ver, enviar e administrar. O UID define a identidade do remetente.
+let loginPerson="João";
+function selectPerson(person){
+ loginPerson=person;
+ document.querySelectorAll("[data-person]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.person===person)));
+ try{$("#login-email").value=localStorage.getItem("humor-dia-email-"+person)||"";}catch{}
+ $("#login-pass").value="";$("#login-error").textContent="";
+}
+document.querySelectorAll("[data-person]").forEach(b=>b.onclick=()=>selectPerson(b.dataset.person));
+selectPerson("João");
+function authChanged(user){
+ const person=user?Object.keys(USERS).find(n=>USERS[n]===user.uid):null;
+ if(user&&!person){
+  $("#login-error").textContent="Esta conta não está autorizada para entrar.";
+  authSdk.signOut(auth);return;
+ }
+ currentUser=user||null;who=person||null;
+ $("#gate").hidden=!!person;$("#app-main").hidden=!person;
+ $("#toast").hidden=true;
+ if(person){
+  $("#connected-as").textContent=`💜 Conectado como ${person}`;
+  $("#send-as").textContent=person;
+  $("#admin-panel").hidden=false;
+  adminMessage(`Acesso liberado para ${person}. Você pode editar os humores.`);
+  listenCatalog();listen();tab(location.hash==="#enviar"?"enviar":"ver");
+ }else{
+  stopSubs();catalogUnsub?.();catalogUnsub=null;
+  $("#admin-panel").hidden=true;
+ }
+ updateButtons();
+}
+$("#login-form").addEventListener("submit",async e=>{
+ e.preventDefault();if(!auth||!authSdk){$("#login-error").textContent="Falha na conexão com o Firebase. Confira a internet.";return;}
+ const email=$("#login-email").value.trim(),pass=$("#login-pass").value;
+ const btn=$("#login-submit");btn.disabled=true;$("#login-error").textContent="Verificando sua chave…";
+ try{
+  const credentials=await authSdk.signInWithEmailAndPassword(auth,email,pass);
+  if(credentials.user.uid!==USERS[loginPerson]){
+   await authSdk.signOut(auth);$("#login-error").textContent="Esta conta pertence à outra pessoa ou não está autorizada.";return;
+  }
+  try{localStorage.setItem("humor-dia-email-"+loginPerson,email);}catch{}
+  $("#login-pass").value="";$("#login-error").textContent="";
+ }catch(err){
+  console.error("Login:",err.code||err.message);
+  $("#login-error").textContent="Não foi possível entrar. Confira o e-mail e a chave cadastrados no Firebase.";
+ }finally{btn.disabled=false;}
+});
+$("#signout").onclick=()=>{if(confirm("Deseja sair do Nosso Cantinho neste aparelho?"))authSdk.signOut(auth);};
+function previewEditor(){const preview=$("#manage-preview");preview.replaceChildren();preview.style.background=$("#manage-color").value;if(currentEditorImg){const img=new Image();img.alt="Prévia";img.src=currentEditorImg;preview.append(img);}else preview.textContent=$("#manage-emoji").value||"🥹";}
+function openEditor(m=null){currentEditorId=m?.id||null;currentEditorImg=m?.image||"";$("#manage-form").hidden=false;$("#manage-title").textContent=m?`Editar ${m.label}`:"Adicionar novo humor";$("#manage-label").value=m?.label||"";$("#manage-emoji").value=m?.emoji||"🥹";$("#manage-color").value=m?.c||"#ff8fab";$("#manage-image").value="";previewEditor();$("#manage-form").scrollIntoView({behavior:"smooth",block:"nearest"});}
+$("#admin-new").onclick=()=>openEditor();
+$("#manage-cancel").onclick=()=>{$("#manage-form").hidden=true;};
+$("#manage-remove-image").onclick=()=>{currentEditorImg="";$("#manage-image").value="";previewEditor();};
+for(const id of ["#manage-color","#manage-emoji"])$(id).addEventListener("input",previewEditor);
+async function compressImage(file){if(!/^image\/(png|jpeg|webp|gif|bmp)$/.test(file.type))throw Error("Escolha uma imagem JPG, PNG, WEBP, GIF ou BMP.");if(file.size>5*1024*1024)throw Error("A imagem deve ter no máximo 5 MB.");const url=URL.createObjectURL(file);let img;try{img=await new Promise((ok,no)=>{const element=new Image();element.onload=()=>ok(element);element.onerror=()=>no(Error("Não foi possível abrir a imagem."));element.src=url;});}finally{URL.revokeObjectURL(url);}if(img.width<1||img.height<1)throw Error("Imagem inválida.");for(const side of [320,256,200,160]){const canvas=document.createElement("canvas");canvas.width=canvas.height=side;const ctx=canvas.getContext("2d");if(!ctx)throw Error("O navegador não suporta edição de imagem.");const cut=Math.min(img.width,img.height);ctx.drawImage(img,(img.width-cut)/2,(img.height-cut)/2,cut,cut,0,0,side,side);for(const quality of [.76,.58,.4]){let data=canvas.toDataURL("image/webp",quality);if(!data.startsWith("data:image/webp;"))data=canvas.toDataURL("image/jpeg",quality);if(data.length<68000)return data;}}throw Error("A imagem ficou muito grande. Use uma foto menor.");}
+$("#manage-image").addEventListener("change",async e=>{const file=e.target.files?.[0];if(!file)return;adminMessage("Preparando imagem…");try{currentEditorImg=await compressImage(file);previewEditor();adminMessage(`Imagem pronta: ${Math.ceil(currentEditorImg.length/1024)} KB. Clique em Salvar humor.`);}catch(err){adminMessage(err.message);e.target.value="";}});
+function moodPayload(m){return {label:m.label,emoji:m.emoji,color:m.c,active:m.active,image:m.image||"",order:Math.round(m.order??99)};}
+async function changeMoodActive(m,active){if(!currentUser)return adminMessage("Faça login com sua chave primeiro.");if(!active&&!confirm(`Ocultar ${m.label} da lista? O histórico antigo permanecerá visível.`))return;try{const data={...moodPayload(m),active};await fs.setDoc(fs.doc(db,ADMIN_COLLECTION,m.id),data);adminMessage(active?`Humor ${m.label} reativado!`:`Humor ${m.label} ocultado. O histórico foi preservado.`);}catch(e){console.error(e);adminMessage(`Não foi possível alterar: ${e.code||e.message}. Confira se seu UID está autorizado nas regras.`);}}
+$("#manage-form").addEventListener("submit",async event=>{event.preventDefault();if(isAdminSaving)return;const label=$("#manage-label").value.trim(),emoji=$("#manage-emoji").value.trim(),color=$("#manage-color").value;if(!label||!emoji)return adminMessage("Informe nome e emoji.");if(!currentUser)return adminMessage("Faça login com sua chave primeiro.");if(!db)return adminMessage("Firestore indisponível.");const existing=MOODS.find(m=>m.id===currentEditorId);const id=currentEditorId||`novo-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,7)}`;const data={label,emoji,color,active:existing?.active??true,image:currentEditorImg,order:Math.round(existing?.order??(MOODS.length+10))};isAdminSaving=true;$("#manage-save").disabled=true;try{await fs.setDoc(fs.doc(db,ADMIN_COLLECTION,id),data);adminMessage(`Humor "${label}" salvo! Disponível em todos os aparelhos.`);$("#manage-form").hidden=true;}catch(e){console.error(e);adminMessage(`Não foi possível salvar: ${e.code||e.message}. Verifique a autorização de administrador nas regras.`);}finally{isAdminSaving=false;$("#manage-save").disabled=false;}});
+async function init(){
+ if(!FIREBASE_CONFIG)throw Error("FIREBASE_CONFIG não foi definido.");
+ const {initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+ fs=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+ authSdk=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+ const app=initializeApp(FIREBASE_CONFIG);db=fs.getFirestore(app);auth=authSdk.getAuth(app);
+ authSdk.onAuthStateChanged(auth,authChanged,err=>{$("#login-error").textContent="Erro ao verificar a sessão: "+(err.code||err.message);});
+ updateButtons();
+}
+renderMoods();renderEffects();mode("humor");
+init().catch(e=>{console.error("Falha de inicialização",e);initError=e;$("#login-error").textContent="Não foi possível iniciar o Firebase. Confira sua conexão e a configuração.";});
 </script>
 </body>
 </html>

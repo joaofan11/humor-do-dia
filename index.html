@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -46,9 +47,10 @@ main{max-width:720px;margin:0 auto;padding:25px 16px 65px}.mast{margin-bottom:20
 .login-persons{display:grid;grid-template-columns:1fr 1fr;gap:10px}.login-persons button{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:15px;padding:12px 7px;font-weight:800}.login-persons button[aria-pressed=true]{border-color:var(--accent);background:var(--purple)}
 .login-card label{font-weight:800;font-size:.9rem;display:block;margin-top:14px}.login-card input{margin-top:5px;width:100%;padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--bg);color:var(--ink);font:inherit}
 .login-card .login-tip{font-weight:400;color:var(--soft);font-size:.78rem;margin:7px 0 0}.login-card .submit{margin-top:20px}.login-error{color:#ba3456;min-height:1.5em;font-size:.88rem;font-weight:700;margin:12px 0 0}
-.account-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0 0;font-size:.82rem;color:var(--soft)}.account-bar button{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink);font:inherit;font-weight:700}
+.account-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0 0;font-size:.82rem;color:var(--soft)}.account-bar button{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink);font:inherit;font-weight:700}.account-bar{flex-wrap:wrap}.push-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.push-feedback{color:var(--soft);font-size:.8rem;margin:3px 0 0}
 .toast{position:fixed;z-index:70;bottom:20px;left:50%;transform:translateX(-50%);background:var(--card);color:var(--ink);border:2px solid var(--accent);border-radius:17px;box-shadow:0 10px 40px #0004;padding:12px 14px;width:min(92vw,380px)}.toast strong,.toast span{display:block}.toast button{border:0;background:var(--purple);color:var(--ink);font:inherit;font-weight:800;padding:6px 12px;border-radius:10px;margin-top:8px}
 </style>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 </head>
 <body>
 <section id="gate" class="login-gate" aria-labelledby="gate-heading">
@@ -73,7 +75,8 @@ main{max-width:720px;margin:0 auto;padding:25px 16px 65px}.mast{margin-bottom:20
   </form>
 </section>
 <main id="app-main" hidden>
-  <div class="account-bar"><span id="connected-as">Conectado</span><button id="signout" type="button">Sair</button></div>
+  <div class="account-bar"><span id="connected-as">Conectado</span><div class="push-tools"><button id="enable-push" type="button">🔔 Ativar notificações</button><button id="signout" type="button">Sair</button></div></div>
+  <p id="push-feedback" class="push-feedback" role="status" aria-live="polite"></p>
   <header class="mast"><div class="eyebrow">❤️ João &amp; Beatriz</div><h1>Como você está hoje?</h1><p class="sub">Um lugarzinho para dividir humores e mandar surpresas, mesmo à distância.</p></header>
   <div id="warn" class="warn" hidden>Modo demonstração: as mensagens ficam somente neste aparelho. Configure o Firebase para sincronizar.</div>
   <nav class="tabs" aria-label="Navegação principal"><button id="t-ver" type="button" aria-selected="true">💗 Ver humor</button><button id="t-enviar" type="button" aria-selected="false">💌 Enviar</button></nav>
@@ -110,7 +113,6 @@ main{max-width:720px;margin:0 auto;padding:25px 16px 65px}.mast{margin-bottom:20
     <section id="send-humor"><h2 class="field-title">Como você está se sentindo?</h2><div id="grid" class="mood-grid"></div><label for="note" class="field">Quer contar mais alguma coisa? <span>(opcional, até 200 caracteres)</span></label><textarea id="note" maxlength="200" placeholder="Como foi seu dia?"></textarea><button id="send" class="submit" type="button" disabled>Enviar meu humor</button></section>
     <section id="send-surprise" hidden><h2 class="field-title">Escolha sua surpresa ✨</h2><p class="hint">Ela aparecerá na tela inicial para o outro abrir.</p><div id="effects" class="effect-grid"></div><div id="effect-tip" class="tip" hidden></div><label for="message" class="field">Mensagem da surpresa <span>(até 600 caracteres)</span></label><textarea id="message" maxlength="600" placeholder="Escreva um recadinho especial…"></textarea><div id="photo-box" hidden><label for="photo" class="field">Imagem da Polaroid <span>(usar uma foto da pasta img/ ou emoji)</span></label><select id="photo"></select></div><button id="send-surprise-btn" class="submit" type="button" disabled>Enviar surpresa 🎁</button></section>
     <div id="send-status" class="send-status" role="status" aria-live="polite"></div>
-
   </section>
   <footer class="footer">Feito com carinho. 💜 <br>Acesso reservado a João e Beatriz pelo Firebase Authentication.</footer>
 </main>
@@ -126,6 +128,54 @@ const FIREBASE_CONFIG = {
   messagingSenderId: "800720243468",
   appId: "1:800720243468:web:a5a4325885a88777d71729"
 };
+// Identificador público da aplicação no OneSignal. NUNCA coloque App API Keys aqui.
+const ONESIGNAL_APP_ID = "1db1e6e3-c4a7-4937-b49f-8fa9d91cca45";
+const ONESIGNAL_WORKER = "humor-do-dia/push/onesignal/OneSignalSDKWorker.js";
+const ONESIGNAL_SCOPE = "/humor-do-dia/push/onesignal/";
+let osInstance=null, osStart=null;
+function pushFeedback(value){const e=document.querySelector("#push-feedback");if(e)e.textContent=value;}
+function startOneSignal(){
+  if(osStart)return osStart;
+  // O SDK somente será inicializado depois de o Firebase reconhecer uma das duas contas.
+  osStart=new Promise((resolve,reject)=>{
+    window.OneSignalDeferred=window.OneSignalDeferred||[];
+    window.OneSignalDeferred.push(async function(OneSignal){
+      try {
+        await OneSignal.init({
+          appId:ONESIGNAL_APP_ID,
+          serviceWorkerPath:ONESIGNAL_WORKER,
+          serviceWorkerParam:{scope:ONESIGNAL_SCOPE},
+          notifyButton:{enable:false},
+          autoResubscribe:false
+        });
+        osInstance=OneSignal;
+        OneSignal.User.PushSubscription.addEventListener("change",()=>refreshPushUI());
+        OneSignal.Notifications.addEventListener("permissionChange",()=>refreshPushUI());
+        resolve(OneSignal);
+      } catch(e){osStart=null;reject(e);}
+    });
+  });
+  return osStart;
+}
+function refreshPushUI(){
+  if(!osInstance)return;
+  const btn=document.querySelector("#enable-push");
+  if(!btn)return;
+  const active=!!osInstance.User.PushSubscription.optedIn;
+  btn.textContent=active?"🔔 Notificações ativadas":"🔔 Ativar notificações";
+  pushFeedback(active?"Este aparelho está inscrito para receber notificações.":"Toque em Ativar notificações para receber avisos neste aparelho.");
+}
+async function linkPushAccount(user){
+  if(!user)return;
+  try {
+    const OneSignal=await startOneSignal();
+    if(auth?.currentUser?.uid!==user.uid)return;
+    // ID da conta autenticada, usado para associar vários aparelhos à mesma pessoa.
+    // No futuro, o Worker DEVERÁ validar o token Firebase antes de enviar alertas.
+    await OneSignal.login(user.uid);
+    if(auth?.currentUser?.uid===user.uid)refreshPushUI();
+  }catch(e){console.error("OneSignal:",e);pushFeedback("Não foi possível iniciar as notificações neste navegador.");}
+}
 // Para usar imagens opcionais: img/feliz.jpg, img/apaixonada.jpg etc.
 const USERS = Object.freeze({
   "João": "OQl7Q6WQtuaKo22KSXF5tLWAty12",
@@ -190,7 +240,6 @@ $("#toast-open").onclick=()=>{$("#toast").hidden=true;tab("ver");};
 function tab(name){currentTab=name;$("#v-ver").hidden=name!=="ver";$("#v-enviar").hidden=name!=="enviar";$("#t-ver").setAttribute("aria-selected",String(name==="ver"));$("#t-enviar").setAttribute("aria-selected",String(name==="enviar"));history.replaceState(null,"",name==="ver"?"#ver":"#enviar");}
 $("#t-ver").onclick=()=>tab("ver");$("#t-enviar").onclick=()=>tab("enviar");$("#refresh").onclick=()=>listen();
 function updateButtons(){$("#send").disabled=sending||!currentUser||!selectedMood||!db;$("#send-surprise-btn").disabled=sending||!currentUser||!selectedFx||!db;}
-
 function renderMoods(){const grid=$("#grid");grid.replaceChildren();for(const m of MOODS.filter(x=>x.active)){const b=el("button","mood");b.type="button";b.setAttribute("aria-pressed",String(selectedMood===m.id));b.append(imagePic(m,"pic"),el("span","lbl",m.label));b.onclick=()=>{selectedMood=m.id;grid.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));updateButtons();};grid.append(b);}if(!MOODS.some(m=>m.id===selectedMood&&m.active))selectedMood=null;updateButtons();renderPhotoOptions();}
 function renderPhotoOptions(){const photo=$("#photo"),before=photo.value;photo.replaceChildren();for(const m of MOODS.filter(x=>x.active)){const op=el("option",null,`${m.emoji} ${m.label}`);op.value=m.id;photo.append(op);}photo.value=MOODS.some(m=>m.id===before&&m.active)?before:(MOODS.find(m=>m.id==="apaixonada"&&m.active)||MOODS.find(m=>m.active)||{}).id||"";}
 function renderEffects(){EFFECTS.forEach(f=>{const b=el("button","effect-choice");b.type="button";b.setAttribute("aria-pressed","false");b.append(el("span","symbol",f.emoji),el("span","effect-name",f.label));b.onclick=()=>{selectedFx=f.id;$("#effects").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("#effect-tip").textContent=f.tip;$("#effect-tip").hidden=false;$("#photo-box").hidden=f.id!=="polaroid";$("#message").placeholder=f.id==="pote"||f.id==="estrelas"?"Um recado por linha…":"Escreva um recadinho especial…";updateButtons();};$("#effects").append(b);});renderPhotoOptions();}
@@ -255,9 +304,13 @@ function authChanged(user){
   $("#admin-panel").hidden=false;
   adminMessage(`Acesso liberado para ${person}. Você pode editar os humores.`);
   listenCatalog();listen();tab(location.hash==="#enviar"?"enviar":"ver");
+  pushFeedback("Preparando notificações neste aparelho…");
+  void linkPushAccount(user);
  }else{
   stopSubs();catalogUnsub?.();catalogUnsub=null;
   $("#admin-panel").hidden=true;
+  pushFeedback("");
+  if(osInstance)void osInstance.logout().catch(err=>console.warn("OneSignal logout:",err));
  }
  updateButtons();
 }
@@ -278,6 +331,30 @@ $("#login-form").addEventListener("submit",async e=>{
  }finally{btn.disabled=false;}
 });
 $("#signout").onclick=()=>{if(confirm("Deseja sair do Nosso Cantinho neste aparelho?"))authSdk.signOut(auth);};
+$("#enable-push").addEventListener("click",async()=>{
+  const button=document.querySelector("#enable-push");
+  if(!auth?.currentUser)return pushFeedback("Faça login antes de ativar as notificações.");
+  // Push do iPhone funciona apenas na versão instalada na Tela de Início.
+  const isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const installed=window.navigator.standalone===true || window.matchMedia("(display-mode: standalone)").matches;
+  if(isIOS&&!installed)return pushFeedback("No iPhone: abra pelo Safari, use Compartilhar → Adicionar à Tela de Início e abra pelo ícone.");
+  button.disabled=true;
+  pushFeedback("Solicitando permissão para notificações…");
+  try {
+    const OneSignal=await startOneSignal();
+    if(!OneSignal.Notifications.isPushSupported()){
+      pushFeedback("Este navegador não oferece Web Push. Teste no Chrome, Edge ou no app da Tela de Início do iPhone.");return;
+    }
+    await OneSignal.login(auth.currentUser.uid);
+    // Chamado apenas por clique explícito: jamais pedir permissão ao abrir o site.
+    if(!OneSignal.Notifications.permission)await OneSignal.Notifications.requestPermission();
+    if(OneSignal.Notifications.permission){
+      await OneSignal.User.PushSubscription.optIn();
+      refreshPushUI();
+    }else pushFeedback("Permissão não concedida. Você pode liberá-la nas configurações do navegador.");
+  }catch(e){console.error("Ativação push:",e);pushFeedback("Não foi possível ativar. Veja o Console do navegador para detalhes.");}
+  finally{button.disabled=false;}
+});
 function previewEditor(){const preview=$("#manage-preview");preview.replaceChildren();preview.style.background=$("#manage-color").value;if(currentEditorImg){const img=new Image();img.alt="Prévia";img.src=currentEditorImg;preview.append(img);}else preview.textContent=$("#manage-emoji").value||"🥹";}
 function openEditor(m=null){currentEditorId=m?.id||null;currentEditorImg=m?.image||"";$("#manage-form").hidden=false;$("#manage-title").textContent=m?`Editar ${m.label}`:"Adicionar novo humor";$("#manage-label").value=m?.label||"";$("#manage-emoji").value=m?.emoji||"🥹";$("#manage-color").value=m?.c||"#ff8fab";$("#manage-image").value="";previewEditor();$("#manage-form").scrollIntoView({behavior:"smooth",block:"nearest"});}
 $("#admin-new").onclick=()=>openEditor();

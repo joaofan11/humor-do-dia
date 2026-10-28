@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -113,6 +112,7 @@ main{max-width:720px;margin:0 auto;padding:25px 16px 65px}.mast{margin-bottom:20
     <section id="send-humor"><h2 class="field-title">Como você está se sentindo?</h2><div id="grid" class="mood-grid"></div><label for="note" class="field">Quer contar mais alguma coisa? <span>(opcional, até 200 caracteres)</span></label><textarea id="note" maxlength="200" placeholder="Como foi seu dia?"></textarea><button id="send" class="submit" type="button" disabled>Enviar meu humor</button></section>
     <section id="send-surprise" hidden><h2 class="field-title">Escolha sua surpresa ✨</h2><p class="hint">Ela aparecerá na tela inicial para o outro abrir.</p><div id="effects" class="effect-grid"></div><div id="effect-tip" class="tip" hidden></div><label for="message" class="field">Mensagem da surpresa <span>(até 600 caracteres)</span></label><textarea id="message" maxlength="600" placeholder="Escreva um recadinho especial…"></textarea><div id="photo-box" hidden><label for="photo" class="field">Imagem da Polaroid <span>(usar uma foto da pasta img/ ou emoji)</span></label><select id="photo"></select></div><button id="send-surprise-btn" class="submit" type="button" disabled>Enviar surpresa 🎁</button></section>
     <div id="send-status" class="send-status" role="status" aria-live="polite"></div>
+
   </section>
   <footer class="footer">Feito com carinho. 💜 <br>Acesso reservado a João e Beatriz pelo Firebase Authentication.</footer>
 </main>
@@ -240,12 +240,68 @@ $("#toast-open").onclick=()=>{$("#toast").hidden=true;tab("ver");};
 function tab(name){currentTab=name;$("#v-ver").hidden=name!=="ver";$("#v-enviar").hidden=name!=="enviar";$("#t-ver").setAttribute("aria-selected",String(name==="ver"));$("#t-enviar").setAttribute("aria-selected",String(name==="enviar"));history.replaceState(null,"",name==="ver"?"#ver":"#enviar");}
 $("#t-ver").onclick=()=>tab("ver");$("#t-enviar").onclick=()=>tab("enviar");$("#refresh").onclick=()=>listen();
 function updateButtons(){$("#send").disabled=sending||!currentUser||!selectedMood||!db;$("#send-surprise-btn").disabled=sending||!currentUser||!selectedFx||!db;}
+
 function renderMoods(){const grid=$("#grid");grid.replaceChildren();for(const m of MOODS.filter(x=>x.active)){const b=el("button","mood");b.type="button";b.setAttribute("aria-pressed",String(selectedMood===m.id));b.append(imagePic(m,"pic"),el("span","lbl",m.label));b.onclick=()=>{selectedMood=m.id;grid.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));updateButtons();};grid.append(b);}if(!MOODS.some(m=>m.id===selectedMood&&m.active))selectedMood=null;updateButtons();renderPhotoOptions();}
 function renderPhotoOptions(){const photo=$("#photo"),before=photo.value;photo.replaceChildren();for(const m of MOODS.filter(x=>x.active)){const op=el("option",null,`${m.emoji} ${m.label}`);op.value=m.id;photo.append(op);}photo.value=MOODS.some(m=>m.id===before&&m.active)?before:(MOODS.find(m=>m.id==="apaixonada"&&m.active)||MOODS.find(m=>m.active)||{}).id||"";}
 function renderEffects(){EFFECTS.forEach(f=>{const b=el("button","effect-choice");b.type="button";b.setAttribute("aria-pressed","false");b.append(el("span","symbol",f.emoji),el("span","effect-name",f.label));b.onclick=()=>{selectedFx=f.id;$("#effects").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("#effect-tip").textContent=f.tip;$("#effect-tip").hidden=false;$("#photo-box").hidden=f.id!=="polaroid";$("#message").placeholder=f.id==="pote"||f.id==="estrelas"?"Um recado por linha…":"Escreva um recadinho especial…";updateButtons();};$("#effects").append(b);});renderPhotoOptions();}
 function mode(name){sendMode=name;$("#send-humor").hidden=name!=="humor";$("#send-surprise").hidden=name!=="surpresa";$("#mode-humor").setAttribute("aria-pressed",String(name==="humor"));$("#mode-surpresa").setAttribute("aria-pressed",String(name==="surpresa"));setStatus("");}
 $("#mode-humor").onclick=()=>mode("humor");$("#mode-surpresa").onclick=()=>mode("surpresa");
-async function submit(col,data,success){sending=true;setStatus("Enviando…");updateButtons();try{await save(col,data);setStatus("");showNotice(success);tab("ver");}catch(e){console.error(e);setStatus(e.code==="permission-denied"?"O Firebase bloqueou o envio. Publique as regras atualizadas antes de testar.":"Não foi possível enviar. Confira a conexão e tente novamente.");}finally{sending=false;updateButtons();}}
+async function submit(col, data, success) {
+  sending = true;
+  setStatus("Enviando…");
+  updateButtons();
+
+  try {
+    // A mensagem é salva antes de disparar qualquer notificação.
+    const docRef = await fs.addDoc(fs.collection(db, col), data);
+    setStatus("");
+    showNotice(success);
+    tab("ver");
+
+    try {
+      // Token do usuário autenticado: NÃO é uma chave privada.
+      const user = auth.currentUser;
+      if (!user) throw new Error("Sessão encerrada antes da notificação");
+      const idToken = await user.getIdToken();
+
+      const response = await fetch(
+        "https://humor-do-dia-notificacoes.joaofan11.workers.dev/notify",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${idToken}`
+          },
+          body: JSON.stringify({
+            collection: col,
+            documentId: docRef.id
+          })
+        }
+      );
+
+      const resultado = await response.json().catch(() => null);
+      if (!response.ok || resultado?.ok !== true) {
+        console.warn("Notificação não confirmada:", response.status, resultado);
+        showNotice(success + " ⚠️ A mensagem foi salva, mas a notificação não foi confirmada.");
+      } else {
+        console.log("Cloudflare Worker confirmou a solicitação:", resultado);
+      }
+    } catch (erroNotificacao) {
+      console.error("Falha ao solicitar notificação:", erroNotificacao);
+      showNotice(success + " ⚠️ A mensagem foi salva, mas houve falha na notificação.");
+    }
+  } catch (erroFirebase) {
+    console.error("Erro ao salvar no Firebase:", erroFirebase);
+    setStatus(
+      erroFirebase.code === "permission-denied"
+        ? "O Firebase bloqueou o envio. Confira as regras do Firestore."
+        : "Não foi possível enviar. Verifique a conexão."
+    );
+  } finally {
+    sending = false;
+    updateButtons();
+  }
+}
 $("#send").onclick=async()=>{if(!selectedMood||!who||sending)return;const sender=who;const data={mood:selectedMood,note:$("#note").value.trim(),sender,ts:Date.now()};await submit("humores",data,`Humor de ${sender} enviado com sucesso! 💜`);};
 $("#send-surprise-btn").onclick=async()=>{if(!selectedFx||!who||sending)return;const sender=who,recipient=sender==="João"?"Beatriz":"João",message=$("#message").value.trim()||"Um carinho especial pra você! ❤️";const data={type:selectedFx,sender,recipient,message,ts:Date.now()};if(selectedFx==="polaroid")data.photo=$("#photo").value;await submit("surpresas",data,`Surpresa de ${sender} para ${recipient} enviada! 🎁`);};
 // Efeitos interativos: mensagens dos usuários sempre entram com textContent (não HTML).
@@ -355,6 +411,7 @@ $("#enable-push").addEventListener("click",async()=>{
   }catch(e){console.error("Ativação push:",e);pushFeedback("Não foi possível ativar. Veja o Console do navegador para detalhes.");}
   finally{button.disabled=false;}
 });
+
 function previewEditor(){const preview=$("#manage-preview");preview.replaceChildren();preview.style.background=$("#manage-color").value;if(currentEditorImg){const img=new Image();img.alt="Prévia";img.src=currentEditorImg;preview.append(img);}else preview.textContent=$("#manage-emoji").value||"🥹";}
 function openEditor(m=null){currentEditorId=m?.id||null;currentEditorImg=m?.image||"";$("#manage-form").hidden=false;$("#manage-title").textContent=m?`Editar ${m.label}`:"Adicionar novo humor";$("#manage-label").value=m?.label||"";$("#manage-emoji").value=m?.emoji||"🥹";$("#manage-color").value=m?.c||"#ff8fab";$("#manage-image").value="";previewEditor();$("#manage-form").scrollIntoView({behavior:"smooth",block:"nearest"});}
 $("#admin-new").onclick=()=>openEditor();
